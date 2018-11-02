@@ -1,0 +1,114 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<ZW_Blog.Models.BlogPost>
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css">
+
+<!-- Page Header -->
+<!-- Set your background image for this header on the line below. -->
+<header class="intro-header" style="background-image: url('../../img/home-bg.jpg');">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="site-heading">
+                    <h1><span class="grey">Z</span><span class="white">a</span><span class="grey">c</span><span class="white">h</span><span class="grey">a</span><span class="white">r</span><span class="grey">y</span> <span class="white">W</span><span class="grey">i</span><span class="white">l</span><span class="grey">s</span><span class="white">o</span><span class="grey">n</span><span class="white">'s</span> <span class="grey">B</span><span class="white">l</span><span class="grey">o</span><span class="white">g</span></h1>
+                    <hr class="small">
+                    <span class="subheading">Read my rambling!</span>
+                    @*<br />
+                    <a href="https://zmwilsonportfolio.azurewebsites.net/" class="btn btn-primary btn-xl" target="_blank">Check Out My Portfolio</a>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="row">
+    @using (Html.BeginForm("Index", "BlogPosts", FormMethod.Get, htmlAttributes: new { @class = "form" }))
+    {
+        <div class="controls controls-row search-row text-center" style="padding-bottom: 30px">
+            <input id="searchStr" name="searchStr" class="input-block-level" type="text"
+                   placeholder="Search">
+
+            <button id="searchStr" name="searchStr" class="btn btn-success" type="submit">
+                <i class="icon-search">Go</i>
+            </button>
+        </div>
+    }
+</div>
+
+<!-- Main Content -->
+<p class="text-center"><em>These blog posts have not been published.</em></p>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            @foreach (var post in Model)
+            {
+                if (post.Published == false)
+                {
+                    <div class="post-preview text-center" style="border: 3px dashed black; border-radius: 15px; background-color: greenyellow">
+                        <h2 class="post-title">
+                            <a href="@Url.Action("ViewPost", "BlogPosts", new { slug = post.Slug })">
+                                <u>@post.Title</u>
+                            </a>
+                        </h2>
+                        <h4 class="post-subtitle">
+                            @post.Abstract
+                        </h4>
+                        <footer class="text-center">
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <h6>
+                                    <a class="details" href="@Url.Action("Details", "BlogPosts", new { slug = post.Slug })">
+                                        Details
+                                    </a>
+                                    |
+                                    <a style="color:dimgrey" href="@Url.Action("Edit", "BlogPosts", new { id = post.Id })">
+                                        Edit
+                                    </a>
+                                    |
+                                    <a class="delete" href="@Url.Action("Delete", "BlogPosts", new { slug = post.Slug })">
+                                        Delete
+                                    </a>
+                                </h6>
+                            }
+                            <h5 class="post-meta">
+                                <b>Posted on @post.Created</b>
+                                ||
+                                <b>Updated on @post.Updated</b>
+                            </h5>
+                        </footer>
+                    </div>
+                }
+                <hr>
+            }
+
+            <div class="row text-center">
+                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                @*@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))*@
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchStr = ViewBag.Search }))
+
+            </div>
+            <p class="text-center"><a href="@Url.Action("Index", "BlogPosts")"><em>Back to published</em></a></p>
+        </div>
+    </div>
+</div>
+<hr>
+
+<style>
+    .edit {
+        color: Highlight;
+    }
+
+    .delete {
+        color: darkred;
+    }
+
+    .white {
+        color: white;
+    }
+
+    .grey {
+        color: grey;
+    }
+</style>

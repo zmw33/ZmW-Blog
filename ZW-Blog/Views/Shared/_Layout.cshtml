@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Zachary M. Wilson's Blog</title>
+
+    <link rel="icon" class="fav" href="~/img/favicon.png" />
+
+    <!-- Bootstrap Core CSS -->
+    <link href="~/Scripts/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Theme CSS -->
+    <link href="~/Scripts/clean-blog.min.css" rel="stylesheet" />
+
+    <!-- Custom Fonts -->
+    <link href="~/Scripts/font-awesome.min.css" rel="stylesheet" />
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <style>
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div>
+            <!-- Brand and toggle get grouped for better mobile display -->
+            @*<div class="navbar-brand">Zachary's Blog</div>*@
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                @Html.Partial("_LoginPartial")
+                <ul class="nav navbar-nav navbar-left" style="color:gray">
+                    <li>
+                        @*<a href="index.html">Home</a>*@
+                        @Html.ActionLink("Home", "Index", "BlogPosts")
+                    </li>
+                    <li>
+                        @*<a href="about.html">About</a>*@
+                        @Html.ActionLink("About", "About", "Home")
+                    </li>
+
+                    <li>
+                        @*<a href="contact.html">Contact</a>*@
+                        @Html.ActionLink("Contact", "Contact", "Home")
+                    </li>
+
+                    <li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            @Html.ActionLink("Create New Post", "Create", "BlogPosts")
+                        }
+                    </li>
+                    <li>
+                        <a href="https://zmwilsonportfolio.azurewebsites.net" target="_blank">My Portfolio</a>
+                    </li>
+                </ul>
+
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    @RenderBody()
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-lg-offset-3">
+                    <div class="row">
+                        <div class="col-lg-2 text-center">
+                            <a href="https://github.com/zmw33" target="_blank"><img src="~/img/github-512.png" height="50" width="50"></a>
+                        </div>
+                        <div class="col-lg-2 text-center">
+                            <a href="https://www.linkedin.com/in/zachary-wilson-b4752416b/" target="_blank"><img src="~/img/linkedin_circle_logo.png" height="50" width="50"></a>
+                        </div>
+                        <div class="col-lg-2 text-center">
+                            <a href="mailto:ZacharyWilsonM@gmail.com" target="_blank"><img src="https://pbs.twimg.com/profile_images/972154872261853184/RnOg6UyU.jpg" height="50" width="50"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <p class="copyright text-muted">Copyright &copy; Zachary M. Wilson, @DateTime.Now.Year</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
+    <!-- Contact Form JavaScript -->
+    <script src="~/Scripts/jqBootstrapValidation.js"></script>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <!-- Theme JavaScript -->
+    <script src="~/Scripts/clean-blog.min.js"></script>
+
+    <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css">
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
+
+
+
+
+
+
+
+@*<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>@ViewBag.Title - My ASP.NET Application</title>
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+
+    </head>
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </div>
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </footer>
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </body>
+    </html>*@

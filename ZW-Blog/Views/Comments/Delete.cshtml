@@ -1,0 +1,82 @@
+﻿@model ZW_Blog.Models.Comment
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<header class="intro-header" style="background-image: url('../../img/Delete.jpg');">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="site-heading">
+                    <h1>Delete</h1>
+                    <hr class="small">
+                    <h3 class="text-center">Are you sure you want to delete this?</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div>
+    <dl class="dl-horizontalb col-lg-offset-1">
+        <dt>
+            <b>@Html.DisplayNameFor(model => model.Created)</b>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Created)
+        </dd>
+
+        <dt>
+            <b>@Html.DisplayNameFor(model => model.Updated)</b>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Updated)
+        </dd>
+
+        <dt>
+            <b>@Html.DisplayNameFor(model => model.UpdateReason)</b>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdateReason)
+        </dd>
+
+        <dt>
+            <b>@Html.DisplayNameFor(model => model.Author.FirstName)</b>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Author.FirstName)
+        </dd>
+
+        <dt>
+            <b>@Html.DisplayNameFor(model => model.Author.LastName)</b>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Author.LastName)
+        </dd>
+
+        <dt>
+            <b>@Html.DisplayNameFor(model => model.Body)</b>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Body)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color col-lg-offset-1">
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            <a href="javascript:void(0);" onclick="history.go(-1);">Back To Post</a>
+        </div>
+    }
+</div>

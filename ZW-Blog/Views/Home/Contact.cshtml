@@ -1,0 +1,94 @@
+﻿@model ZW_Blog.Models.EmailModel
+
+@using (Html.BeginForm("Contact", "Home", FormMethod.Post, new { id = "contactForm" }))
+{
+    @Html.AntiForgeryToken()
+
+    <header class="intro-header" style="background-image: url('../../img/CupNString.jpg'); ">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading" style="color:black">
+                        <h1>Contact Me</h1>
+                        <hr class="small" style="color:black">
+                        <h3 class="subheading" style="color:black"><b>Send me an email and I will respond as soon as possible!</b></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <hr />
+
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group text-right">
+        @Html.LabelFor(m => m.FromName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10" style="padding-right: 400px">
+            @Html.TextBoxFor(m => m.FromName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.FromName)
+        </div>
+    </div>
+    <div class="form-group text-right">
+        @Html.LabelFor(m => m.FromEmail, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10" style="padding-right: 400px">
+            @Html.TextBoxFor(m => m.FromEmail, new { @class = "form-control", placeholder = "example@email.com" })
+            @Html.ValidationMessageFor(m => m.FromEmail)
+        </div>
+    </div>
+    <div class="form-group text-right">
+        @Html.LabelFor(m => m.Subject, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10" style="padding-right: 400px">
+            @Html.TextBoxFor(m => m.Subject, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Subject)
+        </div>
+    </div>
+    <div class="form-group text-right">
+        @Html.Raw(Model.Body)
+        @Html.LabelFor(m => m.Body, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10" style="padding-right: 400px">
+            @Html.TextBoxFor(m => m.Body, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Body)
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10" style="padding-top: 10px; padding-bottom: 50px">
+            <input type="submit" class="btn btn-primary" value="Send" />
+        </div>
+    </div>
+}
+
+@section scripts
+    {
+    <script src="~/Scripts/tinymce/tinymce.min.js"></script>
+    <script src="~/Scripts/tinymce/jquery.tinymce.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            tinymce.init({
+                selector: '#Body'
+            });
+        });
+    </script>
+}
+
+
+@*<div id="eModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title text-center" style="color:black"><b>Success!</b></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <p>Your email has been sent, I will respond as soon as I am able</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>*@

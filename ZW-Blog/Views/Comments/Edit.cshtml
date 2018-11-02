@@ -1,0 +1,59 @@
+﻿@model ZW_Blog.Models.Comment
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<header class="intro-header" style="background-image: url('../../img/editing.jpg'); ">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="site-heading">
+                    <h1>Edit</h1>
+                    <hr class="small">
+                    <h4 class="text-center">Comment</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+@using (Html.BeginForm("Edit", "Comments", FormMethod.Post, new { enctype = "Multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4 class="text-center"><em>BlogPost</em></h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.AuthorId)
+    @Html.HiddenFor(model => model.BlogPostId)
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.Created)
+
+    <div class="form-group">
+        @Html.Label("Edit Comment:", htmlAttributes: new { @class = "control-label col-md-4 text-center" })
+        <div class="col-md-8 text-left">
+            @Html.EditorFor(model => model.Body, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("Update Reason:", htmlAttributes: new { @class = "control-label col-md-4 text-center" })
+        <div class="col-md-8 text-left">
+            @Html.EditorFor(model => model.UpdateReason, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.UpdateReason, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div class="col-lg-offset-2">
+    <a href="javascript:void(0);" onclick="history.go(-1);">Back To Post</a>
+</div>

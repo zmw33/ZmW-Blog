@@ -1,0 +1,82 @@
+﻿@model IEnumerable<ZW_Blog.Models.BlogPost>
+
+<!-- Page Header -->
+<!-- Set your background image for this header on the line below. -->
+<header class="intro-header" style="background-image: url('../../img/home-bg.jpg');">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="site-heading">
+                    <h1><span class="white">Z</span><span class="grey">a</span><span class="white">c</span><span class="grey">h</span><span class="white">a</span><span class="grey">r</span><span class="white">y</span> <span class="grey">W</span><span class="white">i</span><span class="grey">l</span><span class="white">s</span><span class="grey">o</span><span class="white">n</span><span class="grey">'s</span> <span class="white">B</span><span class="grey">l</span><span class="white">o</span><span class="grey">g</span></h1>
+                    <hr class="small">
+                    <span class="subheading">Read my rambling!</span>
+                    @*<br />
+                    <a href="https://zmwilsonportfolio.azurewebsites.net/" class="btn btn-primary btn-xl" target="_blank">Check Out My Portfolio</a>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+            @foreach (var post in Model)
+                {
+                    <div class="post-preview">
+                        <a href="@Url.Action("Details", "BlogPosts", new { slug = post.Slug })">
+                            <h2 class="post-title">
+                                @post.Title
+                            </h2>
+                            <h3 class="post-subtitle">
+                                @post.Abstract
+                            </h3>
+                        </a>
+                        <p class="post-meta">Posted on @post.Created</p>
+                    </div>
+                    <hr>
+                }
+
+            <!-- Pager -->
+            <ul class="pager">
+                <li class="next">
+                    <a href="#">Older Posts &rarr;</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<hr>
+
+<section id="contact">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 text-center">
+                <h2 class="section-heading"><b><u>Contact Information</u></b></h2>
+                <br />
+                <p>Contact me by phone, email or text and I will get back to you as soon as possible!</p>
+            </div>
+            <div class="col-lg-3 text-center">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCkUXzUCG3wX9GKSKKUAucmjag11_r1cWrqxKFVF-T9Urf33UU" height="50" width="50">
+                <p><a href="tel:336-813-6925">Call</a> or <a href="sms:336-813-6925">Text</a></p>
+            </div>
+            <div class="col-lg-3 text-center">
+                <img src="~/Images/github-512.png" height="50" width="50">
+                <p><a href="https://github.com/zmw33" target="_blank">GitHub</a></p>
+            </div>
+            <div class="col-lg-3 text-center">
+                <img src="~/Images/linkedin_circle_logo.png" height="50" width="50">
+                <p><a href="https://www.linkedin.com/in/zachary-wilson-b4752416b/" target="_blank">LinkedIn</a></p>
+            </div>
+            <div class="col-lg-3 text-center">
+                <img src="https://pbs.twimg.com/profile_images/972154872261853184/RnOg6UyU.jpg" height="50" width="50">
+                <p><a href="mailto:ZacharyWilsonM@gmail.com" target="_blank">Gmail</a></p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+

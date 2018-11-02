@@ -1,0 +1,94 @@
+﻿@model ZW_Blog.Models.BlogPost
+
+@{
+    ViewBag.Title = "ViewPost";
+}
+
+<header class="intro-header" style="background-image: url('../../img/home-bg.jpg');">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="site-heading">
+                    <h1>@Model.Title</h1>
+                    <hr class="small">
+                    <span class="subheading">@Model.Abstract</span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</header>
+
+<div>
+    <div class="row">
+        <div class="col-lg-offset-2 col-lg-8 col-lg-offset-2">
+            @Html.Raw(Model.Body)
+            @if (Model.MediaURL != null)
+            {
+                <img class="img-responsive" src="@Model.MediaURL" alt="">
+            }
+        </div>
+    </div>
+</div>
+
+
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="row">
+        <hr />
+        @using (Html.BeginForm("Create", "Comments", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+
+            //pass PK into Comments Create as FK
+            @Html.Hidden("BlogPostId", Model.Id)
+            @Html.HiddenFor(model => model.Slug)
+
+            <div class="form-group">
+                @Html.Label("Add Comment:", htmlAttributes: new { @class = "control-label col-md-4 text-center" })
+                <div class="col-md-8 text-left">
+                    @Html.TextArea("CommentBody", new { htmlAttributes = new { @rows = "4", @cols = "50", @class = "form-control" } })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-4 col-md-4">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@foreach (var comment in Model.Comments.OrderByDescending(c => c.Created))
+{
+    <div class="panel-primary">
+        <div class="panel-heading"><b>Authored by:</b> @comment.Author.LastName, @comment.Author.FirstName</div>
+        <div class="panel-body">@comment.Body</div>
+        <div class="panel-footer">
+            <div class="row">
+                @comment.Created
+                @if (comment.Updated != null)
+                {
+                    <span> | </span>
+                }
+                @comment.Updated
+            </div>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="row">
+                    <h6>
+                        @*@Html.ActionLink("Edit", "Edit", "Comments", new { id = comment.Id }, null)*@
+                        <a style="color:dimgrey" href="@Url.Action("Edit", "Comments", new { id = comment.Id })">Edit</a>
+                        |
+                        @*@Html.ActionLink("Delete", "Delete", "Comments", new { id = comment.Id }, new { @class="delete"})*@
+                        <a class="delete" href="@Url.Action("Delete", "Comments", new { id = comment.Id })">Delete</a>
+                    </h6>
+                </div>
+            }
+            <div class="row">
+                <p><b>Update Reason:</b> @comment.UpdateReason</p>
+            </div>
+        </div>
+    </div>
+}

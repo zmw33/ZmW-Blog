@@ -1,0 +1,101 @@
+﻿@model ZW_Blog.Models.BlogPost
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<header class="intro-header" style="background-image: url('../../img/editing.jpg'); ">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="site-heading">
+                    <h1>Edit</h1>
+                    <hr class="small">
+                    <h4 class="text-center">BlogPost</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+@using (Html.BeginForm("Edit", "BlogPosts", FormMethod.Post, new { enctype = "Multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4 class="text-center"><em>BlogPost</em></h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.Created)
+    @Html.HiddenFor(model => model.Slug)
+    @Html.HiddenFor(model => model.MediaURL)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Abstract, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Abstract, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Abstract, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Body, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Body, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.MediaURL, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-7">
+            <input name="image" type="file" class="form-control" id="fileUpload" />
+            @Html.ValidationMessageFor(model => model.MediaURL, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Published, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.Published)
+                @Html.ValidationMessageFor(model => model.Published, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div class="col-lg-offset-2">
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts
+    {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="~/Scripts/tinymce/tinymce.min.js"></script>
+    <script src="~/Scripts/tinymce/jquery.tinymce.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            tinymce.init({
+                selector: '#Body'
+            });
+        });
+    </script>
+}
